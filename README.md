@@ -1,37 +1,88 @@
 # EmojiKit
+A lightweight Swift package that gives you access to all available emojis for each iOS version. Additionally, this repository includes a script to fetch all emojis for a specific release from [Unicode.org](unicode.org).
 
-A lightweight script that queries all available emoji releases from [Unicode.org](unicode.org) and makes them easily available in any product for the Apple ecosystem. 
+## Installation
+The repository includes to different products with different use cases:
+* `EmojiKit Executable`: A script that fetches emoji release from [Unicode.org](unicode.org), parses them and stores them in easy-to-use `json` files.
+* `EmojiKitLibrary`: A Swift Package Manager (SPM) package that provides all available emojis for supported iOS versions. It already includes all supported for all iOS version higher or equal than `iOS 15.4`.
 
-## Usage
+In most cases it is enough to just use the `EmojiKitLibrary` for your app. The executable is only needed if you want to fetch releases manually or fetch older non-supported unicode versions. 
 
-The main idea behind this script is that there is no full list of supported emojis that can be easily used in Swift. This script fetches the full list of emojis from [Unicode.org](unicode.org), parses them and returns a structured `.json` file where all emojis are sorted in their official category. The `.json` files can be easily read afterwards for further usage in any product.
+## EmojiKitLibrary
 
-1. Clone this repository and `cd` into the repository 
-2. Run `swift run -c release EmojiKit` to build the package
-3. Move the product into `/usr/local/bin` to make it available systemwide with `cp .build/release/EmojiKit /usr/bin/emojiKit`
-4. Call the script from anywhere with `emojiKit download <path> -v <version>
+### Installation
+
+##### SwiftPM
+
+```
+https://github.com/niklasamslgruber/EmojiKit
+```
+
+> When asked by Xcode, only select the `EmojiKitLibrary` as a dependency, not the `EmojiKit` executable as it's not needed.
+
+### Usage
+
+The SPM package provides an easy-to-use `EmojiManager` that parses the stored emoji files and returns them as an Array of `EmojiCategory`. Each category is the official unicode category and includes all emojis that are assigned to this category. In total these are 10 categories while the `.component` category can be ignored in most cases.
+
+#### Get all supported emojis
+```
+let emojisByCategory: [EmojiCategory] = EmojiManager.getAvailableEmojis()
+```
+
+**Parameters:**
+* `version`: By default the `EmojiManager` always returns the highest unicode version that is supported on a user's device. You can also manually specify a version which could lead to some emojis being displayed as `'?'` if the unicode version does not match the user's iOS version.
+* `showAllVariations`: Many emojis are available in different skin types. By default the `EmojiManager` returns only the neutral (yellow) version of each emoji. If you want to receive all version, set this parameter to `true`.
+* `at url`: If you don't want to use the emoji files that are already included in this package, you can manually specify the location of your emoji_<version>.json`. 
+
+## EmojiKit Executable
+
+> In most cases this part is not necessary if you just want to get the emojis in Swift. If you want to do some manual fetching or your app supports iOS versions below `iOS 15.4`, this chapter is for you.
+
+The main idea behind this script is that there is no full list of supported emojis that can be easily used in Swift. This script fetches the full list of emojis from [Unicode.org](unicode.org), parses them and returns a structured `emojis_vX.json` file where all emojis are assigned to their official unicode category. The `.json` files can be easily parsed afterwards for further usage in any product.
+
+### Installation
+
+##### Manual
+
+```
+git clone https://github.com/niklasamslgruber/EmojiKit
+```
+
+To use the executable as a script from your Terminal, some further steps are required:
+
+1. Clone the repository and `cd` into it.
+2. Run `swift run -c release EmojiKit` to build the package.
+3. Move the product into `/usr/local/bin` to make it available systemwide with `cp .build/release/EmojiKit /usr/bin/emojiKit`.
 
 > Alternatively you can simply run `sh build.sh` to do steps 2. and 3. in one go.
 
-### Arguments:
-* **path**: Specify the directory where the `emoji_v<version>.json` file should be stored. Only provide the directory like `/Desktop` or `.` for the current directory, not the whole file path.
-* **version (--version, -v)**: New emojis are released yearly (in general). Currently only version `14` and `15` (latest) are supported. But you can easily extend the script by adding new cases to the `EmojiUnicodeVersion` enum. 
+#### Execution
+```
+emojiKit download <path> -v <version>
+```
 
-## Usage with Xcode
-> Swift Package Manager and CocoaPods support is planned for the future. Currently, you need to do some manual steps to use the emojis with Xcode and Swift.
+**Arguments:**
+* `path`: Specify the directory where the `emoji_v<version>.json` file should be stored. Only provide the directory like `/Desktop` or `.` for the current directory, not the whole file path.
+* `version (--version, -v)`: Currently only version `14` and `15` (latest) are supported. 
 
-1. In your Xcode project, add a file called `emoji_v<version>` to your assets, Make sure that they are included under *Build Phases - Copy Bundle Resources* (if not add them manually there). For each version (currently `v14` and `v15`) you need to add a separate file into Xcode.
-2. Run the script as describe above and specify the directory of the files you added in Xcode as the `<path>` argument.
-3. The script will query the emojis and saves them to your files in Xcode.
-4. Afterwards you're ready to use them in Xcode by either reading the data yourself or using the `EmojiManager.swift` included in this repository.
-5. Simply copy the `EmojiManager.swift` and `EmojiCategory.swift` files into your Xcode project.
-6. Afterwards you can load the emojis by calling `EmojiManager.getAvailableEmojis()`. The manager automatically fetches the correct unicode version depending on the device's iOS version to only show supported ones *(you need to run the script for all supported versions first to make the automatic loading work)*. 
+#### Working with unsupported Versions
+Currently only to Unicode releases are supported (Version 14 and 15). If you want to have access to emojis from older versions, you need to edit the source code manually.
 
-> **Note:** Version 14 includes all emojis that are supported on devices from `iOS 15.4` to `<iOS 16.4`. Devices with an iOS Version `>iOS 16.5` require version 15.
+1. Add a new enum case to the `EmojiManager.Version` enum. For example for Version 13, you would need to add `case v13 = 13`. 
+2. Modify the `getSupportedVersion` function to return your new enum case for the corresponding iOS version.
+3. Run the script with the `emojiKit download <path> --version 13` argument to get the emojis from the version 13 release.
+4. Add the emoji file to your Xcode project and specify its url as an parameter of the `EmojiManager.getAvailableEmojis(at: <url)` function to access the emojis in Swift.
 
-## Error Handling
-* If you see emojis on your device that are displayed as a `?` you're most likely running your App on a device below `iOS 15.4`. Anything below `iOS 15.4` is unfortunately not supported. If you still want to use it simply add a new case in the `EmojiUnicodeVersion`, e.g. `v13 = 13` to make it work (no guarantees though).
-* If the `EmojiManager` doesn't return any emojis, there are two possible reasons. First, you didn't run the script for the version you're trying to load, so your `.json` files are empty or non-existent. Simply run the script for all supported version and it should work. If not make sure that the `.json` files are included in the *Build Phases - Copy Bundle Resources* for each target that wants to use the `EmojiManager`.
+## Troubleshooting
+1. **Emojis are rendered as <`?`> in my app:**
+	
+	If you're using the `EmojiKitLibrary` you're most likely running the App on a device with an iOS version below `iOS 15.4`. That is currently not supported. To still make it work, follow the instructions of running the `EmojiKit` executable with unsupported versions to get all emojis that are supported on your device's iOS version.
+	
+2. **The `EmojiManager` does not return any emojis when using the `url` parameter:**
+
+	In that case make sure that you added the `emojis_vX.json` file to your Xcode project. The file name must match the version you're trying to fetch emojis for, e.g. for version 13 the file name must be `emojis_v13.json`. Additionally make sure that your JSON file is added under `Build Phase - Copy Bundle Resources` for each target where you want to use the `EmojiManager`.
+	
+
 
 
 

@@ -28,6 +28,9 @@ let package = Package(
                 .product(name: "SwiftSoup", package: "SwiftSoup"),
                 .target(name: "EmojiKitLibrary")
             ]),
-        .target(name: "EmojiKitLibrary")
+        .target(
+            name: "EmojiKitLibrary", resources: [
+                .process("Resources")
+        ])
     ]
 )
