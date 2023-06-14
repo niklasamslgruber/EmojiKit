@@ -7,7 +7,7 @@
 
 import Foundation
 import ArgumentParser
-import EmojiKitLibrary
+import EmojiKit
 
 struct EmojiDownloader: ParsableCommand, AsyncParsableCommand {
 
@@ -94,7 +94,7 @@ struct EmojiDownloader: ParsableCommand, AsyncParsableCommand {
     }
 
     private func save(data: [EmojiCategory], for: EmojiManager.Version) {
-        var directory = getPath()
+        let directory = getPath()
 
         let encoder = JSONEncoder()
         encoder.outputFormatting = .prettyPrinted

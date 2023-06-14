@@ -14,9 +14,37 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EmojiKitLibrary"
-               BuildableName = "EmojiKitLibrary"
-               BlueprintName = "EmojiKitLibrary"
+               BlueprintIdentifier = "EmojiKit_EmojiKit"
+               BuildableName = "EmojiKit_EmojiKit"
+               BlueprintName = "EmojiKit_EmojiKit"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "EmojiKit"
+               BuildableName = "EmojiKit"
+               BlueprintName = "EmojiKit"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "EmojiSourceKit"
+               BuildableName = "EmojiSourceKit"
+               BlueprintName = "EmojiSourceKit"
                ReferencedContainer = "container:">
             </BuildableReference>
          </BuildActionEntry>
@@ -39,6 +67,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "EmojiSourceKit"
+            BuildableName = "EmojiSourceKit"
+            BlueprintName = "EmojiSourceKit"
+            ReferencedContainer = "container:">
+         </BuildableReference>
+      </MacroExpansion>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -49,9 +86,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EmojiKitLibrary"
-            BuildableName = "EmojiKitLibrary"
-            BlueprintName = "EmojiKitLibrary"
+            BlueprintIdentifier = "EmojiSourceKit"
+            BuildableName = "EmojiSourceKit"
+            BlueprintName = "EmojiSourceKit"
             ReferencedContainer = "container:">
          </BuildableReference>
       </MacroExpansion>

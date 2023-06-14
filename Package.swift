@@ -8,8 +8,8 @@ let package = Package(
     platforms: [.macOS(.v13), .iOS(.v15)],
     products: [
         .library(
-            name: "EmojiKitLibrary",
-            targets: ["EmojiKitLibrary"]
+            name: "EmojiKit",
+            targets: ["EmojiKit"]
         )
     ],
     dependencies: [
@@ -18,14 +18,14 @@ let package = Package(
     ],
     targets: [
         .executableTarget(
-            name: "EmojiKit",
+            name: "EmojiSourceKit",
             dependencies: [
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
                 .product(name: "SwiftSoup", package: "SwiftSoup"),
-                .target(name: "EmojiKitLibrary")
+                .target(name: "EmojiKit")
             ]),
         .target(
-            name: "EmojiKitLibrary", resources: [
+            name: "EmojiKit", resources: [
                 .process("Resources")
         ])
     ]
