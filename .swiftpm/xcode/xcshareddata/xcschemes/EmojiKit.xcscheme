@@ -52,7 +52,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "download --path ."
+            argument = "download ."
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

@@ -17,7 +17,19 @@ struct EmojiDownloader: ParsableCommand, AsyncParsableCommand {
     )
 
     @Argument var path: String
-    @Option(name: .shortAndLong) var version: DataProcessor.EmojiUnicodeVersion = .v15
+    @Option(name: .shortAndLong) var version: EmojiManager.Version = .v13_1
+
+    private func getPath() -> String {
+        #if DEBUG
+        var url = URL(filePath: #file)
+        url = url.deletingLastPathComponent().deletingLastPathComponent()
+        url.append(path: "EmojiKitLibrary/Resources")
+
+        return url.absoluteString
+        #else
+        return path
+        #endif
+    }
 
     func run() async throws {
         print("⚙️", "Starting to download all emojis for version \(version.rawValue) from unicode.org...\n")
@@ -44,8 +56,6 @@ struct EmojiDownloader: ParsableCommand, AsyncParsableCommand {
 
             print("🎉", "Successfully parsed emojis and matched counts to the count file.\n")
 
-            print("⚙️", "Saving emojis to file emojis_v\(version.rawValue).json...\n")
-
             save(data: emojisByCategory, for: version)
 
             print("🎉", "Successfully saved emojis to file.\n")
@@ -55,12 +65,12 @@ struct EmojiDownloader: ParsableCommand, AsyncParsableCommand {
         }
     }
 
-    func getTemporaryURLForEmojiList(version: DataProcessor.EmojiUnicodeVersion) async -> URL? {
-        return await load(urlString: "https://unicode.org/Public/emoji/\(version.rawValue).0/emoji-test.txt")
+    func getTemporaryURLForEmojiList(version: EmojiManager.Version) async -> URL? {
+        return await load(urlString: "https://unicode.org/Public/emoji/\(version.versionIdentifier)/emoji-test.txt")
     }
 
-    func getTemporaryURLForEmojiCounts(version: DataProcessor.EmojiUnicodeVersion) async -> URL? {
-        return await load(urlString: "https://www.unicode.org/emoji/charts-\(version.rawValue).0/emoji-counts.html")
+    func getTemporaryURLForEmojiCounts(version: EmojiManager.Version) async -> URL? {
+        return await load(urlString: "https://www.unicode.org/emoji/charts-\(version.versionIdentifier)/emoji-counts.html")
     }
 
     private func load(urlString: String) async -> URL? {
@@ -83,7 +93,9 @@ struct EmojiDownloader: ParsableCommand, AsyncParsableCommand {
         }
     }
 
-    private func save(data: [EmojiCategory], for: DataProcessor.EmojiUnicodeVersion) {
+    private func save(data: [EmojiCategory], for: EmojiManager.Version) {
+        var directory = getPath()
+
         let encoder = JSONEncoder()
         encoder.outputFormatting = .prettyPrinted
 
@@ -92,9 +104,11 @@ struct EmojiDownloader: ParsableCommand, AsyncParsableCommand {
             return
         }
 
-        var filePath = URL(filePath: path)
+        var filePath = URL(filePath: directory)
         filePath.append(path: version.fileName)
         let jsonString = String(data: result, encoding: .utf8)
+
+        print("⚙️", "Saving emojis to file \(filePath.absoluteString)...\n")
 
         if FileManager.default.fileExists(atPath: filePath.absoluteString) == false {
             FileManager.default.createFile(atPath: filePath.absoluteString, contents: nil)
@@ -108,4 +122,4 @@ struct EmojiDownloader: ParsableCommand, AsyncParsableCommand {
     }
 }
 
-extension DataProcessor.EmojiUnicodeVersion: ExpressibleByArgument {}
+extension EmojiManager.Version: ExpressibleByArgument {}

@@ -9,19 +9,33 @@ import Foundation
 
 public enum EmojiManager {
     
-    public enum Version: Int {
+    public enum Version: Double {
+        case v13_1 = 13.1
         case v14 = 14
         case v15 = 15
         
         public var fileName: String {
-            return "emojis_v\(rawValue)"
+            return "emojis_v\(versionIdentifier).json"
+        }
+
+        public var versionIdentifier: String {
+            switch self {
+            case .v13_1:
+                return "13.1"
+            case .v14:
+                return "14.0"
+            case .v15:
+                return "15.0"
+            }
         }
         
         public static func getSupportedVersion() -> Version {
             if #available(iOS 16.4, *) {
                 return .v15
-            } else {
+            } else if #available(iOS 15.4, *) {
                 return .v14
+            } else {
+                return .v13_1
             }
         }
     }
