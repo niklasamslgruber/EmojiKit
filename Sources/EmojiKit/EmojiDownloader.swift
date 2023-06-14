@@ -105,7 +105,7 @@ struct EmojiDownloader: ParsableCommand, AsyncParsableCommand {
         }
 
         var filePath = URL(filePath: directory)
-        filePath.append(path: version.fileName)
+        filePath.append(path: "\(version.fileName).json")
         let jsonString = String(data: result, encoding: .utf8)
 
         print("⚙️", "Saving emojis to file \(filePath.absoluteString)...\n")

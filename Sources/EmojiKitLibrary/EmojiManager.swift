@@ -15,7 +15,7 @@ public enum EmojiManager {
         case v15 = 15
         
         public var fileName: String {
-            return "emojis_v\(versionIdentifier).json"
+            return "emojis_v\(versionIdentifier)"
         }
 
         public var versionIdentifier: String {
