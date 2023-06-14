@@ -18,8 +18,6 @@ In most cases it is enough to just use the `EmojiKitLibrary` for your app. The e
 https://github.com/niklasamslgruber/EmojiKit
 ```
 
-> When asked by Xcode, only select the `EmojiKitLibrary` as a dependency, not the `EmojiKit` executable as it's not needed.
-
 ### Usage
 
 The SPM package provides an easy-to-use `EmojiManager` that parses the stored emoji files and returns them as an Array of `EmojiCategory`. Each category is the official unicode category and includes all emojis that are assigned to this category. In total these are 10 categories while the `.component` category can be ignored in most cases.
