@@ -45,7 +45,7 @@ The main idea behind this script is that there is no full list of supported emoj
 
 ##### Manual
 
-```
+```bash
 git clone https://github.com/niklasamslgruber/EmojiKit
 ```
 
@@ -58,7 +58,7 @@ To use `EomjiSourceKit` as a script from your Terminal, some further steps are r
 > Alternatively you can simply run `sh build.sh` to do steps 2. and 3. in one go.
 
 #### Execution
-```
+```bash
 emojiSourceKit download <path> -v <version>
 ```
 
