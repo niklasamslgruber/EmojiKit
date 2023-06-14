@@ -66,7 +66,7 @@ emojiKit download <path> -v <version>
 #### Working with unsupported Versions
 Currently only to Unicode releases are supported (Version 14 and 15). If you want to have access to emojis from older versions, you need to edit the source code manually.
 
-1. Add a new enum case to the `EmojiManager.Version` enum. For example for Version 12, you would need to add `case v12 = 12`. 
+1. Add a new enum case to the `EmojiManager.Version` enum. For example for Version 12, you would need to add `case v12 = 12`. Also, add a `versionIdentifier`. This should match the release number from Unicode.rog **exactly**. You can find all releases [here](https://unicode.org/Public/emoji/). 
 2. Modify the `getSupportedVersion` function to return your new enum case for the corresponding iOS version.
 3. Run the script with the `emojiKit download <path> --version 12` argument to get the emojis from the version 12 release.
 4. Add the emoji file to your Xcode project and specify its url as an parameter of the `EmojiManager.getAvailableEmojis(at: <url)` function to access the emojis in Swift.
