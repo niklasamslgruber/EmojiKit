@@ -79,8 +79,3 @@ Currently only to Unicode releases are supported (Version 14 and 15). If you wan
 2. **The `EmojiManager` does not return any emojis when using the `url` parameter:**
 
 	In that case make sure that you added the `emojis_vX.json` file to your Xcode project. The file name must match the version you're trying to fetch emojis for, e.g. for version 12 the file name must be `emojis_v12.json`. Additionally make sure that your JSON file is added under `Build Phase - Copy Bundle Resources` for each target where you want to use the `EmojiManager`.
-	
-
-
-
-
