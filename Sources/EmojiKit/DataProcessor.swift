@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import EmojiKitLibrary
 
 public enum DataProcessor {
 

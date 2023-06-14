@@ -11,10 +11,10 @@ let package = Package(
             name: "EmojiKit",
             targets: ["EmojiKit"]
         ),
-//        .library(
-//            name: "EmojiKitLibrary",
-//            targets: ["EmojiKitLibrary"]
-//        )
+        .library(
+            name: "EmojiKitLibrary",
+            targets: ["EmojiKitLibrary"]
+        )
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.0.0"),
@@ -26,8 +26,8 @@ let package = Package(
             dependencies: [
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
                 .product(name: "SwiftSoup", package: "SwiftSoup"),
-//                .target(name: "EmojiKitLibrary")
+                .target(name: "EmojiKitLibrary")
             ]),
-//        .target(name: "EmojiKitLibrary")
+        .target(name: "EmojiKitLibrary")
     ]
 )

@@ -7,17 +7,17 @@
 
 import Foundation
 
-enum EmojiManager {
+public enum EmojiManager {
     
-    enum Version: Int {
+    public enum Version: Int {
         case v14 = 14
         case v15 = 15
         
-        var fileName: String {
+        public var fileName: String {
             return "emojis_v\(rawValue)"
         }
         
-        static func getSupportedVersion() -> Version {
+        public static func getSupportedVersion() -> Version {
             if #available(iOS 16.4, *) {
                 return .v15
             } else {
@@ -25,13 +25,18 @@ enum EmojiManager {
             }
         }
     }
-    
-    static func getAvailableEmojis(version: Version = .getSupportedVersion()) -> [EmojiCategory] {
+
+    /// Returns all emojis for a specific version
+    /// - Parameters:
+    ///   - version: The specific version you want to fetch (default: the highest supported version for a device's iOS version)
+    ///   - showAllVariations: Some emojis inlcude skin type variations which increases the number of emojis drastically. (default: only the yellow neutral emojis are returned)
+    /// - Returns: Array of categories with all emojis that are assigned to each category
+    public static func getAvailableEmojis(version: Version = .getSupportedVersion(), showAllVariations: Bool = false) -> [EmojiCategory] {
         if let url = Bundle.main.url(forResource: version.fileName, withExtension: "json"), let content = try? Data(contentsOf: url), let result = try? JSONDecoder().decode([EmojiCategory].self, from: content) {
             var filteredEmojis: [EmojiCategory] = []
             for category in result {
                 let supportedEmojis = category.values.filter({
-                    isNeutralEmoji(for: $0)
+                    showAllVariations ? true : isNeutralEmoji(for: $0)
                 })
                 filteredEmojis.append(EmojiCategory(name: category.name, values: supportedEmojis))
             }
