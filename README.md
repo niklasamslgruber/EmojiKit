@@ -24,7 +24,9 @@ https://github.com/niklasamslgruber/EmojiKit
 The SPM package provides an easy-to-use `EmojiManager` that parses the stored emoji files and returns them as an Array of `EmojiCategory`. Each category is the official unicode category and includes all emojis that are assigned to this category. In total these are 10 categories while the `.component` category can be ignored in most cases.
 
 #### Get all supported emojis
-```
+```swift
+import EmojiKit
+
 let emojisByCategory: [EmojiCategory] = EmojiManager.getAvailableEmojis()
 ```
 
@@ -80,3 +82,4 @@ Currently only to Unicode releases are supported (Version 14 and 15). If you wan
 2. **The `EmojiManager` does not return any emojis when using the `url` parameter:**
 
 	In that case make sure that you added the `emojis_vX.json` file to your Xcode project. The file name must match the version you're trying to fetch emojis for, e.g. for version 12 the file name must be `emojis_v12.json`. Additionally make sure that your JSON file is added under `Build Phase - Copy Bundle Resources` for each target where you want to use the `EmojiManager`.
+
