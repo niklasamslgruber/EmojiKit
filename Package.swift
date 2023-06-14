@@ -7,10 +7,10 @@ let package = Package(
     name: "EmojiKit",
     platforms: [.macOS(.v13), .iOS(.v16)],
     products: [
-        .executable(
-            name: "EmojiKit",
-            targets: ["EmojiKit"]
-        ),
+//        .executable(
+//            name: "EmojiKit",
+//            targets: ["EmojiKit"]
+//        ),
         .library(
             name: "EmojiKitLibrary",
             targets: ["EmojiKitLibrary"]
