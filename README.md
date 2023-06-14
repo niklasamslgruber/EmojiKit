@@ -3,8 +3,9 @@ A lightweight Swift package that gives you access to all available emojis for ea
 
 ## Installation
 The repository includes to different products with different use cases:
-* `EmojiSourceKit`: A script that fetches emoji releases from [Unicode.org](unicode.org), parses them and stores them in easy-to-use `json` files.
+
 * `EmojiKit`: A Swift Package Manager (SPM) package that provides all available emojis for supported iOS versions. It already includes all supported for all iOS version higher or equal than `iOS 15.0`.
+* `EmojiSourceKit`: A script that fetches emoji releases from [Unicode.org](unicode.org), parses them and stores them in easy-to-use `json` files.
 
 In most cases it is enough to just use the `EmojiKit` for your app. The `EmojiSourceKit` is only needed if you want to fetch releases manually or fetch older non-supported unicode versions. 
 
