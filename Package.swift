@@ -5,15 +5,11 @@ import PackageDescription
 
 let package = Package(
     name: "EmojiKit",
-    platforms: [.macOS(.v13), .iOS(.v16)],
+    platforms: [.macOS(.v13), .iOS(.v15), .watchOS(.v8), .tvOS(.v15)],
     products: [
-        .executable(
+        .library(
             name: "EmojiKit",
             targets: ["EmojiKit"]
-        ),
-        .library(
-            name: "EmojiKitLibrary",
-            targets: ["EmojiKitLibrary"]
         )
     ],
     dependencies: [
@@ -22,14 +18,14 @@ let package = Package(
     ],
     targets: [
         .executableTarget(
-            name: "EmojiKit",
+            name: "EmojiSourceKit",
             dependencies: [
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
                 .product(name: "SwiftSoup", package: "SwiftSoup"),
-                .target(name: "EmojiKitLibrary")
+                .target(name: "EmojiKit")
             ]),
         .target(
-            name: "EmojiKitLibrary", resources: [
+            name: "EmojiKit", resources: [
                 .process("Resources")
         ])
     ]

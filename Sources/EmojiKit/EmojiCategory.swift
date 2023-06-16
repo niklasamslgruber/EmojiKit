@@ -25,6 +25,11 @@ public class EmojiCategory: Codable {
             return EmojiCategory.Name.allCases.sorted(by: { $0.order < $1.order })
         }
 
+        // The component category does not include relevant emojis
+        public static var relevantCases: [EmojiCategory.Name] {
+            return EmojiCategory.Name.orderedCases.filter({ $0 != .components })
+        }
+
         // Order that Apple uses in their emoji picker
         public var order: Int {
             switch self {

@@ -7,7 +7,7 @@
 
 import Foundation
 import SwiftSoup
-import EmojiKitLibrary
+import EmojiKit
 
 class UnicodeParser {
 

@@ -1,2 +1,2 @@
-swift run -c release EmojiKit
-sudo cp .build/release/EmojiKit /usr/local/bin/emojiKit
+swift run -c release EmojiSourceKit
+sudo cp .build/release/EmojiSourceKit /usr/local/bin/emojiSourceKit
