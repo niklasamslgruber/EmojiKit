@@ -44,7 +44,7 @@ class UnicodeParser {
             /// Split line into list of entries
             let lineComponents = line.split(separator: ";")
 
-            /// Get hex-string from compenents
+            /// Get hex-string from components
             guard let hexString = lineComponents.map({ $0.trim() }).first else {
                 continue
             }

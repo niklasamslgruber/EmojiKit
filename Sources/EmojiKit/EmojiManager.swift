@@ -13,7 +13,8 @@ public enum EmojiManager {
         case v13_1 = 13.1
         case v14 = 14
         case v15 = 15
-        
+        case v15_1 = 15.1
+
         public var fileName: String {
             return "emojis_v\(versionIdentifier)"
         }
@@ -26,6 +27,8 @@ public enum EmojiManager {
                 return "14.0"
             case .v15:
                 return "15.0"
+            case .v15_1:
+                return "15.1"
             }
         }
         
