@@ -9,6 +9,7 @@ import Foundation
 import ArgumentParser
 import EmojiKit
 
+#if os(macOS)
 struct EmojiDownloader: ParsableCommand, AsyncParsableCommand {
 
     static let configuration: CommandConfiguration = CommandConfiguration(
@@ -121,5 +122,5 @@ struct EmojiDownloader: ParsableCommand, AsyncParsableCommand {
         }
     }
 }
-
+#endif
 extension EmojiManager.Version: ExpressibleByArgument {}

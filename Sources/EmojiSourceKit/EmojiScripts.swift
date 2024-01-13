@@ -11,11 +11,13 @@ import ArgumentParser
 @main
 struct EmojiScripts: ParsableCommand, AsyncParsableCommand {
 
+    #if os(macOS)
     static let configuration: CommandConfiguration = CommandConfiguration(
         commandName: "emojis",
         abstract: "Manage Emojis from Unicode",
         subcommands: [
-            EmojiDownloader.self,
+            EmojiDownloader.self
         ]
     )
+    #endif
 }

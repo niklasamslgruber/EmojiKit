@@ -2,7 +2,7 @@
 
 # EmojiKit
 
-A lightweight Swift package that gives you access to all available emojis for each iOS version. Additionally, this repository includes a script to fetch all emojis for a specific release from [Unicode.org](unicode.org).
+A lightweight Swift package that gives you access to all available emojis for each iOS version. Additionally, this repository includes a script to fetch all emojis for a specific release from Unicode.org.
 
 ## Installation
 The repository includes to different products with different use cases:
@@ -42,7 +42,10 @@ let emojisByCategory: [EmojiCategory] = EmojiManager.getAvailableEmojis()
 
 > In most cases this part is not necessary if you just want to get the emojis in Swift. If you want to do some manual fetching or your app supports iOS versions below `iOS 15.0`, this chapter is for you.
 
-The main idea behind this script is that there is no full list of supported emojis that can be easily used in Swift. This script fetches the full list of emojis from [Unicode.org](unicode.org), parses them and returns a structured `emojis_vX.json` file where all emojis are assigned to their official unicode category. The `.json` files can be easily parsed afterwards for further usage in any product.
+The main idea behind this script is that there is no full list of supported emojis that can be easily used in Swift. This script fetches the full list of emojis from Unicode.org, parses them and returns a structured `emojis_vX.json` file where all emojis are assigned to their official unicode category. The `.json` files can be easily parsed afterwards for further usage in any product.
+
+> **Note**
+> Unicode released version 15.1 already, however these Emojis are not yet supported on iOS. `EmojiSourceKit` already contains the new Emojis, but they can't be used on iOS yet. We will release a new version once Apple integrated them.
 
 ### Installation
 
@@ -52,7 +55,7 @@ The main idea behind this script is that there is no full list of supported emoj
 git clone https://github.com/niklasamslgruber/EmojiKit
 ```
 
-To use `EomjiSourceKit` as a script from your Terminal, some further steps are required:
+To use `EmojiSourceKit` as a script from your Terminal, some further steps are required:
 
 1. Clone the repository and `cd` into it.
 2. Run `swift run -c release EmojiSourceKit` to build the package.
