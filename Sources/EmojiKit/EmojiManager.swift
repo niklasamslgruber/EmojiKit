@@ -33,7 +33,9 @@ public enum EmojiManager {
         }
         
         public static func getSupportedVersion() -> Version {
-            if #available(iOS 16.4, *) {
+            if #available(iOS 17.4, *) {
+                return .v15_1
+            } else  if #available(iOS 16.4, *) {
                 return .v15
             } else if #available(iOS 15.4, *) {
                 return .v14
