@@ -1,5 +1,5 @@
 //
-//  EmojiCategory.swift
+//  UnicodeEmojiCategory.swift
 //  
 //
 //  Created by Niklas Amslgruber on 10.06.23.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class EmojiCategory: Codable {
+public class UnicodeEmojiCategory: Codable {
 
     public enum Name: String, CaseIterable, Codable {
         case flags = "Flags"
@@ -21,47 +21,39 @@ public class EmojiCategory: Codable {
         case foodAndDrink = "Food & Drink"
         case smileysAndEmotions = "Smileys & Emotion"
 
-        public static var orderedCases: [EmojiCategory.Name] {
-            return EmojiCategory.Name.allCases.sorted(by: { $0.order < $1.order })
-        }
-
-        // The component category does not include relevant emojis
-        public static var relevantCases: [EmojiCategory.Name] {
-            return EmojiCategory.Name.orderedCases.filter({ $0 != .components })
-        }
-
-        // Order that Apple uses in their emoji picker
-        public var order: Int {
+        var appleName: AppleEmojiCategory.Name? {
             switch self {
             case .flags:
-                return 10
+                return .flags
             case .activities:
-                return 5
+                return .activity
             case .components:
-                return 8
+                return nil
             case .objects:
-                return 7
+                return .objects
             case .travelAndPlaces:
-                return 6
+                return .travelAndPlaces
             case .symbols:
-                return 9
+                return .symbols
             case .peopleAndBody:
-                return 2
+                return .smileysAndPeople
             case .animalsAndNature:
-                return 3
+                return .animalsAndNature
             case .foodAndDrink:
-                return 4
+                return .foodAndDrink
             case .smileysAndEmotions:
-                return 1
+                return .smileysAndPeople
             }
         }
     }
 
-    public let name: Name
-    public let values: [String]
+    public let unicodeCategory: Name
+    public let appleCategory: AppleEmojiCategory.Name?
+    public var values: [String]
 
-    public init(name: Name, values: [String]) {
-        self.name = name
+    public init(unicodeCategory: Name, values: [String]) {
+        self.unicodeCategory = unicodeCategory
+        self.appleCategory = unicodeCategory.appleName
         self.values = values
     }
 }
