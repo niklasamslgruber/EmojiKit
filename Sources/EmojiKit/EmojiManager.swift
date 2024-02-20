@@ -7,6 +7,8 @@
 
 import Foundation
 
+public typealias EmojiCategory = AppleEmojiCategory
+
 public enum EmojiManager {
 
     public enum Version: Double {
@@ -44,8 +46,6 @@ public enum EmojiManager {
             }
         }
     }
-
-    public typealias EmojiCategory = AppleEmojiCategory
 
     /// Returns all emojis for a specific version
     /// - Parameters:
