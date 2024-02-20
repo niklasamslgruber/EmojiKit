@@ -64,7 +64,13 @@ public enum EmojiManager {
                 filteredEmojis.append(unicodeCategory)
 
                 if shouldMergeCategory(category), let index = appleCategories.firstIndex(where: { $0.name == .smileysAndPeople }) {
-                    appleCategories[index].values.append(contentsOf: supportedEmojis)
+                    if category.name == .smileysAndEmotions {
+                        let oldValues = appleCategories[index].values
+                        appleCategories[index].values = supportedEmojis
+                        appleCategories[index].values.append(contentsOf: oldValues)
+                    } else {
+                        appleCategories[index].values.append(contentsOf: supportedEmojis)
+                    }
                 } else {
                     guard let appleCategory = unicodeCategory.appleCategory else {
                         continue
