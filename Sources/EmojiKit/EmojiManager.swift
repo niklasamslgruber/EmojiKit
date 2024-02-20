@@ -60,12 +60,13 @@ public enum EmojiManager {
                 let supportedEmojis = category.values.filter({
                     showAllVariations ? true : isNeutralEmoji(for: $0)
                 })
-                filteredEmojis.append(UnicodeEmojiCategory(name: category.name, values: supportedEmojis))
+                let unicodeCategory = UnicodeEmojiCategory(name: category.name, values: supportedEmojis)
+                filteredEmojis.append(unicodeCategory)
 
                 if shouldMergeCategory(category), let index = appleCategories.firstIndex(where: { $0.name == .smileysAndPeople }) {
                     appleCategories[index].values.append(contentsOf: supportedEmojis)
                 } else {
-                    guard let appleCategory = category.appleCategory else {
+                    guard let appleCategory = unicodeCategory.appleCategory else {
                         continue
                     }
                     appleCategories.append(AppleEmojiCategory(name: appleCategory, values: supportedEmojis))
