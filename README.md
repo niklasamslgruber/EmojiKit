@@ -24,7 +24,7 @@ https://github.com/niklasamslgruber/EmojiKit
 
 ### Usage
 
-The SPM package provides an easy-to-use `EmojiManager` that parses the stored emoji files and returns them as an Array of `EmojiCategory`. Each category is the official unicode category and includes all emojis that are assigned to this category. In total these are 10 categories while the `.component` category can be ignored in most cases.
+The SPM package provides an easy-to-use `EmojiManager` that parses the stored emoji files and returns them as an Array of `EmojiCategory`. Each category is the category that Apple uses on any Apple platform and includes all emojis that are assigned to this category. In total these are 8 categories.
 
 #### Get all supported emojis
 ```swift

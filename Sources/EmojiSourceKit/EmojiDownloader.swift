@@ -47,9 +47,9 @@ struct EmojiDownloader: ParsableCommand, AsyncParsableCommand {
         let parser = UnicodeParser()
 
         do {
-            let emojisByCategory: [EmojiCategory] = try await parser.parseEmojiList(for: emojiListURL)
+            let emojisByCategory: [UnicodeEmojiCategory] = try await parser.parseEmojiList(for: emojiListURL)
 
-            let emojiCounts: [EmojiCategory.Name: Int] = parser.parseCountHTML(for: emojiCountsURL)
+            let emojiCounts: [UnicodeEmojiCategory.Name: Int] = parser.parseCountHTML(for: emojiCountsURL)
 
             for category in emojisByCategory {
                 assert(emojiCounts[category.name] == category.values.count)
@@ -94,7 +94,7 @@ struct EmojiDownloader: ParsableCommand, AsyncParsableCommand {
         }
     }
 
-    private func save(data: [EmojiCategory], for: EmojiManager.Version) {
+    private func save(data: [UnicodeEmojiCategory], for: EmojiManager.Version) {
         let directory = getPath()
 
         let encoder = JSONEncoder()

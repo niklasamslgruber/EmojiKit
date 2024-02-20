@@ -18,10 +18,10 @@ class UnicodeParser {
         case minimallyQualified = "minimally-qualified"
     }
 
-    func parseEmojiList(for fileUrl: URL) async throws -> [EmojiCategory] {
+    func parseEmojiList(for fileUrl: URL) async throws -> [UnicodeEmojiCategory] {
         let handle = try FileHandle(forReadingFrom: fileUrl)
-        var currentGroup: EmojiCategory.Name = .activities
-        var emojisByGroup: [EmojiCategory.Name: [String]] = [:]
+        var currentGroup: UnicodeEmojiCategory.Name = .activities
+        var emojisByGroup: [UnicodeEmojiCategory.Name: [String]] = [:]
 
         for try await line in handle.bytes.lines {
 
@@ -34,7 +34,7 @@ class UnicodeParser {
             if isLine(line, ofType: .group) {
                 let name = line.split(separator: ":")
                 let categoryName = name.last?.trim() ?? ""
-                guard let category = EmojiCategory.Name(rawValue: categoryName) else {
+                guard let category = UnicodeEmojiCategory.Name(rawValue: categoryName) else {
                     continue
                 }
                 currentGroup = category
@@ -79,15 +79,15 @@ class UnicodeParser {
         }
         try handle.close()
 
-        var result: [EmojiCategory] = []
+        var result: [UnicodeEmojiCategory] = []
 
-        for category in EmojiCategory.Name.allCases {
-            result.append(EmojiCategory(name: category, values: emojisByGroup[category] ?? []))
+        for category in UnicodeEmojiCategory.Name.allCases {
+            result.append(UnicodeEmojiCategory(name: category, values: emojisByGroup[category] ?? []))
         }
         return result
     }
 
-    func parseCountHTML(for url: URL) -> [EmojiCategory.Name: Int] {
+    func parseCountHTML(for url: URL) -> [UnicodeEmojiCategory.Name: Int] {
         do {
             let html = try String(contentsOf: url)
             let doc: Document = try SwiftSoup.parse(html)
@@ -104,14 +104,14 @@ class UnicodeParser {
                 return [:]
             }
 
-            var categoryNames: [EmojiCategory.Name] = []
+            var categoryNames: [UnicodeEmojiCategory.Name] = []
             var countNumbers: [Int] = []
 
             for categoryElement in categoryEntries {
                 if categoryElement == categoryEntries.first || categoryElement == categoryEntries.last {
                     continue
                 }
-                guard let text = try? categoryElement.text(), let category = EmojiCategory.Name(rawValue: text) else {
+                guard let text = try? categoryElement.text(), let category = UnicodeEmojiCategory.Name(rawValue: text) else {
                     continue
                 }
                 categoryNames.append(category)
@@ -127,7 +127,7 @@ class UnicodeParser {
                 countNumbers.append(number)
             }
 
-            var result: [EmojiCategory.Name: Int] = [:]
+            var result: [UnicodeEmojiCategory.Name: Int] = [:]
 
             for (index, categoryName) in categoryNames.enumerated() {
                 result[categoryName] = countNumbers[index]
