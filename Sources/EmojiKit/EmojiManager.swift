@@ -45,13 +45,15 @@ public enum EmojiManager {
         }
     }
 
+    public typealias EmojiCategory = AppleEmojiCategory
+
     /// Returns all emojis for a specific version
     /// - Parameters:
     ///   - version: The specific version you want to fetch (default: the highest supported version for a device's iOS version)
     ///   - showAllVariations: Some emojis include skin type variations which increases the number of emojis drastically. (default: only the yellow neutral emojis are returned)
     ///   - url: Specify the location of the `emoji_v<version_number>.json` files if needed (default: bundle resource path)
     /// - Returns: Array of categories with all emojis that are assigned to each category
-    public static func getAvailableEmojis(version: Version = .getSupportedVersion(), showAllVariations: Bool = false, at url: URL? = nil) -> [AppleEmojiCategory] {
+    public static func getAvailableEmojis(version: Version = .getSupportedVersion(), showAllVariations: Bool = false, at url: URL? = nil) -> [EmojiCategory] {
         let fileUrl = url ?? Bundle.module.url(forResource: version.fileName, withExtension: "json")
         if let url = fileUrl, let content = try? Data(contentsOf: url), let result = try? JSONDecoder().decode([UnicodeEmojiCategory].self, from: content) {
             var filteredEmojis: [UnicodeEmojiCategory] = []
