@@ -45,11 +45,11 @@ public class AppleEmojiCategory: Codable {
         }
     }
 
-    public let appleCategory: Name
+    public let name: Name
     public var values: [String]
 
-    public init(appleCategory: Name, values: [String]) {
-        self.appleCategory = appleCategory
+    public init(name: Name, values: [String]) {
+        self.name = name
         self.values = values
     }
 

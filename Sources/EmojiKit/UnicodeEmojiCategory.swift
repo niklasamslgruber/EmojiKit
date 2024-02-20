@@ -47,13 +47,13 @@ public class UnicodeEmojiCategory: Codable {
         }
     }
 
-    public let unicodeCategory: Name
+    public let name: Name
     public let appleCategory: AppleEmojiCategory.Name?
     public var values: [String]
 
-    public init(unicodeCategory: Name, values: [String]) {
-        self.unicodeCategory = unicodeCategory
-        self.appleCategory = unicodeCategory.appleName
+    public init(name: Name, values: [String]) {
+        self.name = name
+        self.appleCategory = name.appleName
         self.values = values
     }
 }

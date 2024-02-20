@@ -52,7 +52,7 @@ struct EmojiDownloader: ParsableCommand, AsyncParsableCommand {
             let emojiCounts: [UnicodeEmojiCategory.Name: Int] = parser.parseCountHTML(for: emojiCountsURL)
 
             for category in emojisByCategory {
-                assert(emojiCounts[category.unicodeCategory] == category.values.count)
+                assert(emojiCounts[category.name] == category.values.count)
             }
 
             print("🎉", "Successfully parsed emojis and matched counts to the count file.\n")

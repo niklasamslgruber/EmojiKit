@@ -60,24 +60,24 @@ public enum EmojiManager {
                 let supportedEmojis = category.values.filter({
                     showAllVariations ? true : isNeutralEmoji(for: $0)
                 })
-                filteredEmojis.append(UnicodeEmojiCategory(unicodeCategory: category.unicodeCategory, values: supportedEmojis))
+                filteredEmojis.append(UnicodeEmojiCategory(name: category.name, values: supportedEmojis))
 
-                if shouldMergeCategory(category), let index = appleCategories.firstIndex(where: { $0.appleCategory == .smileysAndPeople }) {
+                if shouldMergeCategory(category), let index = appleCategories.firstIndex(where: { $0.name == .smileysAndPeople }) {
                     appleCategories[index].values.append(contentsOf: supportedEmojis)
                 } else {
                     guard let appleCategory = category.appleCategory else {
                         continue
                     }
-                    appleCategories.append(AppleEmojiCategory(appleCategory: appleCategory, values: supportedEmojis))
+                    appleCategories.append(AppleEmojiCategory(name: appleCategory, values: supportedEmojis))
                 }
             }
-            return appleCategories
+            return appleCategories.sorted(by: { $0.name.order < $1.name.order })
         }
         return []
     }
 
     private static func shouldMergeCategory(_ category: UnicodeEmojiCategory) -> Bool {
-        return category.unicodeCategory == .smileysAndEmotions || category.unicodeCategory == .peopleAndBody
+        return category.name == .smileysAndEmotions || category.name == .peopleAndBody
     }
 
     private static func isNeutralEmoji(for emoji: String) -> Bool {

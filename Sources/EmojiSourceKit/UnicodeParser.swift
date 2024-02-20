@@ -82,7 +82,7 @@ class UnicodeParser {
         var result: [UnicodeEmojiCategory] = []
 
         for category in UnicodeEmojiCategory.Name.allCases {
-            result.append(UnicodeEmojiCategory(unicodeCategory: category, values: emojisByGroup[category] ?? []))
+            result.append(UnicodeEmojiCategory(name: category, values: emojisByGroup[category] ?? []))
         }
         return result
     }
