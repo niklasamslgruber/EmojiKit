@@ -16,6 +16,7 @@ public enum EmojiManager {
         case v14 = 14
         case v15 = 15
         case v15_1 = 15.1
+        case v16 = 16.1
 
         public var fileName: String {
             return "emojis_v\(versionIdentifier)"
@@ -31,11 +32,15 @@ public enum EmojiManager {
                 return "15.0"
             case .v15_1:
                 return "15.1"
+            case .v16:
+                return "16.0"
             }
         }
 
         public static func getSupportedVersion() -> Version {
-            if #available(iOS 17.4, *) {
+            if #available(iOS 18.4, *) {
+                return .v16
+            } else if #available(iOS 17.4, *) {
                 return .v15_1
             } else  if #available(iOS 16.4, *) {
                 return .v15

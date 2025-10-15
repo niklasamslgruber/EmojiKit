@@ -18,7 +18,7 @@ struct EmojiDownloader: ParsableCommand, AsyncParsableCommand {
     )
 
     @Argument var path: String
-    @Option(name: .shortAndLong) var version: EmojiManager.Version = .v15
+    @Option(name: .shortAndLong) var version: EmojiManager.Version = .v16
 
     private func getPath() -> String {
         #if DEBUG
@@ -123,4 +123,4 @@ struct EmojiDownloader: ParsableCommand, AsyncParsableCommand {
     }
 }
 #endif
-extension EmojiManager.Version: ExpressibleByArgument {}
+extension EmojiManager.Version: @retroactive ExpressibleByArgument {}
